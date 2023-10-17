@@ -17,7 +17,16 @@ import java.sql.Date;
 public class Choice {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name= "code")
+    private String code;
+
+    @Column(name = "field_id")
+    private Long fieldId;
+
+    @Column(name = "ordinal_position")
+    private Long ordinalPosition;
 }

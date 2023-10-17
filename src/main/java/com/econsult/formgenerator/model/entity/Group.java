@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -17,9 +18,19 @@ import java.sql.Date;
 public class Group {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name= "code")
+    private String code;
 
+    @Column(name = "form_id")
+    private Long formId;
 
+    @Column(name = "ordinal_position")
+    private Long ordinalPosition;
+
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    private List<Field> fields;
 }
