@@ -24,6 +24,9 @@ public class Choice {
     @Column(name= "code")
     private String code;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "field_id")
     private Long fieldId;
 

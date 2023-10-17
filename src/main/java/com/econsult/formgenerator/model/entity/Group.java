@@ -25,6 +25,9 @@ public class Group {
     @Column(name= "code")
     private String code;
 
+    @Column(name= "name")
+    private String name;
+
     @Column(name = "form_id")
     private Long formId;
 

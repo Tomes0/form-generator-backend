@@ -25,6 +25,9 @@ public class Field {
     @Column(name= "code")
     private String code;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "group_id")
     private Long groupId;
 

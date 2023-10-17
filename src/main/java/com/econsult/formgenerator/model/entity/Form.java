@@ -22,11 +22,11 @@ public class Form {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
-
     @Column(name = "code")
     private String code;
+
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "creator_id")
     private Long creatorId;
