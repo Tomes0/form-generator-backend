@@ -8,42 +8,41 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data
 @Entity
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "field")
+@Table(name = "form_group_field")
 public class Field {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name= "code")
+    @Column(name = "code")
     private String code;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "group_id")
-    private Long groupId;
+
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
 
     @Column(name = "ordinal_position")
     private Long ordinalPosition;
-
-    @Column(name = "field_type")
     private String fieldType;
 
     @Column(name = "has_dependency")
     private Boolean hasDependency;
 
-    //TODO: add dependency logic
+    //TODO dependency
 
     @Column(name = "custom_properties")
     private String customProperties;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
     private List<Choice> choices;
 }

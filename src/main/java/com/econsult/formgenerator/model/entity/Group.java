@@ -8,31 +8,32 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data
 @Entity
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "group")
+@Table(name = "form_group")
 public class Group {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name= "code")
+    @Column(name = "code")
     private String code;
 
-    @Column(name= "name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "form_id")
-    private Long formId;
+
+    @ManyToOne
+    @JoinColumn(name = "form_id")
+    private Form form;
 
     @Column(name = "ordinal_position")
     private Long ordinalPosition;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     private List<Field> fields;
 }

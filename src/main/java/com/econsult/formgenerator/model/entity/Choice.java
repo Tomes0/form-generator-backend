@@ -6,27 +6,27 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "choice")
+@Table(name = "form_group_field_choice")
 public class Choice {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name= "code")
+    @Column(name = "code")
     private String code;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "field_id")
-    private Long fieldId;
+    @ManyToOne
+    @JoinColumn(name = "field_id")
+    private Field field;
 
     @Column(name = "ordinal_position")
     private Long ordinalPosition;

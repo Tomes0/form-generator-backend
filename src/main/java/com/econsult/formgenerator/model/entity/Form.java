@@ -1,5 +1,6 @@
 package com.econsult.formgenerator.model.entity;
 
+import com.econsult.formgenerator.model.entity.Group;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,10 +8,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
-import java.util.List;
+import java.util.ArrayList;
 
-@Data
 @Entity
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +19,6 @@ import java.util.List;
 public class Form {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -35,7 +35,7 @@ public class Form {
     private Date creationDate;
 
     @Column(name = "last_modifier_id")
-    private Long lastModifierDate;
+    private Long lastModifierId;
 
     @Column(name = "last_modification_date")
     private Date lastModificationDate;
@@ -43,6 +43,6 @@ public class Form {
     @Column(name = "is_valid")
     private Boolean isValid;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
-    private List<Group> groups;
+    @OneToMany(mappedBy = "form", cascade = CascadeType.ALL)
+    private ArrayList<Group> groups;
 }
