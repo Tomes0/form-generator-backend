@@ -17,7 +17,7 @@ import java.util.List;
 public class Group {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "code")
@@ -34,6 +34,6 @@ public class Group {
     @Column(name = "ordinal_position")
     private Long ordinalPosition;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Field> fields;
 }

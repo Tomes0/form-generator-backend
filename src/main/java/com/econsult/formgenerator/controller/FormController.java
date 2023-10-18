@@ -2,14 +2,12 @@ package com.econsult.formgenerator.controller;
 
 
 import com.econsult.formgenerator.model.dto.FormMinimal;
+import com.econsult.formgenerator.model.entity.Form;
 import com.econsult.formgenerator.service.FormService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Form APIs")
 @RestController
@@ -28,6 +26,18 @@ public class FormController {
         FormMinimal[] formMinimals = formService.getFormMinimals().toArray(FormMinimal[]::new);
 
         return ResponseEntity.ok(formMinimals);
+    }
+
+    @Operation(summary = "Create new form")
+    @PostMapping("/saveForm")
+    private ResponseEntity<Form> createForm(@RequestBody Form form){
+        return ResponseEntity.ok(formService.saveForm(form));
+    }
+
+    @Operation(summary = "Initialize new form")
+    @PostMapping("/initForm")
+    private ResponseEntity<Form> initForm(@RequestBody Form form){
+        return ResponseEntity.ok(formService.initForm(form));
     }
 
 }

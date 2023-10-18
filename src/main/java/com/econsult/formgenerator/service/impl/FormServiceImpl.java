@@ -29,11 +29,26 @@ public class FormServiceImpl implements FormService {
 
     @Override
     public List<FormMinimal> getFormMinimals() {
-        List<FormMinimal> list = Arrays
+
+        return Arrays
                 .stream(this.formRepository.getAllByIsValid(true).toArray(Form[]::new))
                 .map(form -> modelMapper.map(form, FormMinimal.class))
                 .collect(Collectors.toList());
+    }
 
-        return list;
+    @Override
+    public Form saveForm(Form form) {
+        this.formRepository.save(form);
+        return this.formRepository.getByCode(form.getCode());
+    }
+
+    @Override
+    public Form initForm(Form form) {
+        form.setGroups(new ArrayList<>());
+        form.setIsValid(true); // Assuming true as a valid default value
+
+        this.formRepository.save(form);
+
+        return this.formRepository.getByCode(form.getCode());
     }
 }

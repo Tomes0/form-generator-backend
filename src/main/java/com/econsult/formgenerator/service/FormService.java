@@ -1,6 +1,7 @@
 package com.econsult.formgenerator.service;
 
 import com.econsult.formgenerator.model.dto.FormMinimal;
+import com.econsult.formgenerator.model.entity.Form;
 
 import java.util.List;
 
@@ -12,4 +13,8 @@ public interface FormService {
      * @return a list of FormMinimal
      * */
     List<FormMinimal> getFormMinimals();
+
+    Form saveForm(Form form);
+
+    Form initForm(Form form);
 }

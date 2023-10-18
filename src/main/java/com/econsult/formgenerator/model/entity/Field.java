@@ -17,7 +17,7 @@ import java.util.List;
 public class Field {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "code")
@@ -43,6 +43,6 @@ public class Field {
     @Column(name = "custom_properties")
     private String customProperties;
 
-    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Choice> choices;
 }
