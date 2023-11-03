@@ -24,8 +24,13 @@ public class FormController {
     @GetMapping("/getFormMinimals")
     private ResponseEntity<FormMinimal[]> getFormMinimals(){
         FormMinimal[] formMinimals = formService.getFormMinimals().toArray(FormMinimal[]::new);
-
         return ResponseEntity.ok(formMinimals);
+    }
+
+    @Operation(summary = "Returns all the form minimals from the database")
+    @GetMapping("/getFormFromCode")
+    private ResponseEntity<Form> getFormFromCode(@RequestParam  String code){
+        return ResponseEntity.ok(formService.getFormFromCode(code));
     }
 
     @Operation(summary = "Create new form")

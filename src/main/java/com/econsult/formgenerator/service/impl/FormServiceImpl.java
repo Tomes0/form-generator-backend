@@ -51,4 +51,9 @@ public class FormServiceImpl implements FormService {
 
         return this.formRepository.getByCode(form.getCode());
     }
+
+    @Override
+    public Form getFormFromCode(String code) {
+        return this.formRepository.getByCode(code);
+    }
 }

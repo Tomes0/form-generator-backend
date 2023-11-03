@@ -39,9 +39,6 @@ public class Field {
 
     //TODO dependency
 
-    @Column(name = "custom_properties")
-    private String customProperties;
-
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FieldProperty> propertyList;
 
