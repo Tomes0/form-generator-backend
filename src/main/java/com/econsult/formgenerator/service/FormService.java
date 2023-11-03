@@ -19,4 +19,6 @@ public interface FormService {
     Form initForm(Form form);
 
     Form getFormFromCode(String code);
+
+    Form saveFormFromCode(Form form);
 }

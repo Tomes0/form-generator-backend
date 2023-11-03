@@ -45,4 +45,10 @@ public class FormController {
         return ResponseEntity.ok(formService.initForm(form));
     }
 
+    @Operation(summary = "Save form by code")
+    @PostMapping("/saveFromFromCode")
+    private ResponseEntity<Form> saveFormByCode(@RequestParam String formCode ,@RequestBody Form form){
+        return ResponseEntity.ok(formService.saveFormFromCode(form));
+    }
+
 }
