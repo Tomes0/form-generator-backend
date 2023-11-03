@@ -37,5 +37,8 @@ public class Form {
     private Boolean isValid;
 
     @OneToMany(mappedBy = "form", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FormProperty> propertyList;
+
+    @OneToMany(mappedBy = "form", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Group> groups;
 }

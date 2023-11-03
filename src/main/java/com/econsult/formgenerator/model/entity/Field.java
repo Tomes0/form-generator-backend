@@ -26,7 +26,6 @@ public class Field {
     @Column(name = "name")
     private String name;
 
-
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;
@@ -42,6 +41,9 @@ public class Field {
 
     @Column(name = "custom_properties")
     private String customProperties;
+
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FieldProperty> propertyList;
 
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Choice> choices;

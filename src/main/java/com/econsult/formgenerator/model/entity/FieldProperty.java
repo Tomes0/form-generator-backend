@@ -6,33 +6,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "form_group_field_choice")
-public class Choice {
+@Table(name = "form_group_field_property")
+public class FieldProperty {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "code")
-    private String code;
+    @Column(name = "property_name")
+    private String propertyName;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "property_value")
+    private String propertyValue;
 
     @ManyToOne
     @JoinColumn(name = "field_id")
     private Field field;
-
-    @OneToMany(mappedBy = "choice", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ChoiceProperty> propertyList;
-
-    @Column(name = "ordinal_position")
-    private Long ordinalPosition;
 }

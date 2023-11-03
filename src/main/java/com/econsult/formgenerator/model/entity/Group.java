@@ -26,6 +26,8 @@ public class Group {
     @Column(name = "name")
     private String name;
 
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<GroupProperty> propertyList;
 
     @ManyToOne
     @JoinColumn(name = "form_id")
