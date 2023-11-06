@@ -1,24 +1,20 @@
 package com.econsult.formgenerator.service;
 
+import com.econsult.formgenerator.model.dto.FormDto;
 import com.econsult.formgenerator.model.dto.FormMinimal;
-import com.econsult.formgenerator.model.entity.Form;
-
-import java.util.List;
 
 public interface FormService {
 
     /**
      * Returns all form minimals from database.
      *
-     * @return a list of FormMinimal
-     * */
-    List<FormMinimal> getFormMinimals();
+     * @return an array of FormMinimal
+     */
+    FormMinimal[] getFormMinimals();
 
-    Form saveForm(Form form);
+    FormDto saveForm(FormDto form);
 
-    Form initForm(Form form);
+    FormDto initForm(FormDto form);
 
-    Form getFormFromCode(String code);
-
-    Form saveFormFromCode(Form form);
+    FormDto getFormByCode(String code);
 }

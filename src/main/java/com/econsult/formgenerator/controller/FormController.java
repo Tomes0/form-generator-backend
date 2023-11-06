@@ -1,8 +1,8 @@
 package com.econsult.formgenerator.controller;
 
 
+import com.econsult.formgenerator.model.dto.FormDto;
 import com.econsult.formgenerator.model.dto.FormMinimal;
-import com.econsult.formgenerator.model.entity.Form;
 import com.econsult.formgenerator.service.FormService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,32 +23,21 @@ public class FormController {
     @Operation(summary = "Returns all the form minimals from the database")
     @GetMapping("/getFormMinimals")
     private ResponseEntity<FormMinimal[]> getFormMinimals(){
-        FormMinimal[] formMinimals = formService.getFormMinimals().toArray(FormMinimal[]::new);
-        return ResponseEntity.ok(formMinimals);
+        return ResponseEntity.ok(formService.getFormMinimals());
     }
-
     @Operation(summary = "Returns all the form minimals from the database")
-    @GetMapping("/getFormFromCode")
-    private ResponseEntity<Form> getFormFromCode(@RequestParam  String code){
-        return ResponseEntity.ok(formService.getFormFromCode(code));
+    @GetMapping("/getFormByCode")
+    private ResponseEntity<FormDto> getFormByCode(@RequestParam  String code){
+        return ResponseEntity.ok(formService.getFormByCode(code));
     }
-
     @Operation(summary = "Create new form")
     @PostMapping("/saveForm")
-    private ResponseEntity<Form> createForm(@RequestBody Form form){
+    private ResponseEntity<FormDto> saveForm(@RequestBody FormDto form){
         return ResponseEntity.ok(formService.saveForm(form));
     }
-
     @Operation(summary = "Initialize new form")
     @PostMapping("/initForm")
-    private ResponseEntity<Form> initForm(@RequestBody Form form){
+    private ResponseEntity<FormDto> initForm(@RequestBody FormDto form){
         return ResponseEntity.ok(formService.initForm(form));
     }
-
-    @Operation(summary = "Save form by code")
-    @PostMapping("/saveFromFromCode")
-    private ResponseEntity<Form> saveFormByCode(@RequestParam String formCode ,@RequestBody Form form){
-        return ResponseEntity.ok(formService.saveFormFromCode(form));
-    }
-
 }

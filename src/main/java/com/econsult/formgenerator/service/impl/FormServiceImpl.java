@@ -1,14 +1,15 @@
 package com.econsult.formgenerator.service.impl;
 
+import com.econsult.formgenerator.model.dto.FormDto;
 import com.econsult.formgenerator.model.dto.FormMinimal;
 import com.econsult.formgenerator.model.entity.Form;
+import com.econsult.formgenerator.model.entity.Group;
 import com.econsult.formgenerator.repository.FormRepository;
 import com.econsult.formgenerator.service.FormService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,40 +29,38 @@ public class FormServiceImpl implements FormService {
 
 
     @Override
-    public List<FormMinimal> getFormMinimals() {
-
+    public FormMinimal[] getFormMinimals() {
         return Arrays
-                .stream(this.formRepository.getAllByIsValid(true).toArray(Form[]::new))
-                .map(form -> modelMapper.map(form, FormMinimal.class))
-                .collect(Collectors.toList());
+            .stream(this.formRepository.getAllByIsValid(true).toArray(Form[]::new))
+            .map(form -> modelMapper.map(form, FormMinimal.class))
+            .toList().toArray(FormMinimal[]::new);
     }
 
     @Override
-    public Form saveForm(Form form) {
-        this.formRepository.save(form);
-        return this.formRepository.getByCode(form.getCode());
+    public FormDto saveForm(FormDto req) {
+        Form newForm = modelMapper.map(req, Form.class);
+
+        List<Group> groups = newForm
+                .getGroups()
+                .stream()
+                .peek(group -> group.setForm(newForm))
+                .toList();
+
+        newForm.setGroups(groups);
+
+        this.formRepository.save(newForm);
+        return req;
     }
 
     @Override
-    public Form initForm(Form form) {
-        form.setGroups(new ArrayList<>());
-        form.setIsValid(true); // Assuming true as a valid default value
-
-        this.formRepository.save(form);
-
-        return this.formRepository.getByCode(form.getCode());
+    public FormDto initForm(FormDto req) {
+        Form newForm = modelMapper.map(req, Form.class);
+        this.formRepository.save(newForm);
+        return req;
     }
 
     @Override
-    public Form getFormFromCode(String code) {
-        return this.formRepository.getByCode(code);
-    }
-
-    @Override
-    public Form saveFormFromCode(Form form) {
-        Form oldForm = this.formRepository.getByCode(form.getCode());
-        this.formRepository.save(form);
-
-        return form;
+    public FormDto getFormByCode(String code) {
+        return modelMapper.map(this.formRepository.findTopByCode(code), FormDto.class) ;
     }
 }
