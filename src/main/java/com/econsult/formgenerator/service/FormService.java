@@ -2,6 +2,7 @@ package com.econsult.formgenerator.service;
 
 import com.econsult.formgenerator.model.dto.FormDto;
 import com.econsult.formgenerator.model.dto.FormMinimal;
+import org.springframework.http.HttpStatus;
 
 public interface FormService {
 
@@ -17,4 +18,6 @@ public interface FormService {
     FormDto initForm(FormDto form);
 
     FormDto getFormByCode(String code);
+
+    HttpStatus deleteForm(String code);
 }

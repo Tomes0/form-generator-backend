@@ -6,6 +6,7 @@ import com.econsult.formgenerator.model.dto.FormMinimal;
 import com.econsult.formgenerator.service.FormService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,5 +40,11 @@ public class FormController {
     @PostMapping("/initForm")
     private ResponseEntity<FormDto> initForm(@RequestBody FormDto form){
         return ResponseEntity.ok(formService.initForm(form));
+    }
+
+    @Operation(summary = "Delete form")
+    @DeleteMapping("/deleteForm/{code}")
+    private HttpStatus deleteForm(@PathVariable String code){
+        return formService.deleteForm(code);
     }
 }

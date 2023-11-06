@@ -8,11 +8,11 @@ import com.econsult.formgenerator.repository.FormRepository;
 import com.econsult.formgenerator.service.FormService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -62,5 +62,17 @@ public class FormServiceImpl implements FormService {
     @Override
     public FormDto getFormByCode(String code) {
         return modelMapper.map(this.formRepository.findTopByCode(code), FormDto.class) ;
+    }
+
+    @Override
+    public HttpStatus deleteForm(String code) {
+        Form toBeDeleted = this.formRepository.findTopByCode(code);
+
+        if(toBeDeleted != null){
+            this.formRepository.delete(toBeDeleted);
+            return HttpStatus.OK;
+        } else {
+            return HttpStatus.NOT_FOUND;
+        }
     }
 }
