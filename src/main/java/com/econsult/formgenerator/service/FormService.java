@@ -15,7 +15,7 @@ public interface FormService {
 
     FormDto saveForm(FormDto form);
 
-    FormDto initForm(FormDto form);
+    FormDto createNewForm(String form);
 
     FormDto getFormByCode(String code);
 

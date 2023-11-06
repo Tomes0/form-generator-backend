@@ -36,10 +36,10 @@ public class FormController {
     private ResponseEntity<FormDto> saveForm(@RequestBody FormDto form){
         return ResponseEntity.ok(formService.saveForm(form));
     }
-    @Operation(summary = "Initialize new form")
-    @PostMapping("/initForm")
-    private ResponseEntity<FormDto> initForm(@RequestBody FormDto form){
-        return ResponseEntity.ok(formService.initForm(form));
+    @Operation(summary = "Create new form")
+    @PostMapping("/createNewForm")
+    private ResponseEntity<FormDto> createNewForm(@RequestBody String formName){
+        return ResponseEntity.ok(formService.createNewForm(formName));
     }
 
     @Operation(summary = "Delete form")

@@ -53,10 +53,14 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
-    public FormDto initForm(FormDto req) {
-        Form newForm = modelMapper.map(req, Form.class);
+    public FormDto createNewForm(String req) {
+        Form newForm = new Form();
+        newForm.setName(req);
+        newForm.setCode(req.toUpperCase().replace(" ", "_"));
+        newForm.setIsValid(true);
+
         this.formRepository.save(newForm);
-        return req;
+        return modelMapper.map(newForm, FormDto.class);
     }
 
     @Override
