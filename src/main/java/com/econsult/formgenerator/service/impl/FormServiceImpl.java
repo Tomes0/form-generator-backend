@@ -1,5 +1,6 @@
 package com.econsult.formgenerator.service.impl;
 
+import com.econsult.formgenerator.model.dto.CreateFormDto;
 import com.econsult.formgenerator.model.dto.FormDto;
 import com.econsult.formgenerator.model.dto.FormMinimal;
 import com.econsult.formgenerator.model.entity.Form;
@@ -53,10 +54,10 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
-    public FormDto createNewForm(String req) {
+    public FormDto createNewForm(CreateFormDto req) {
         Form newForm = new Form();
-        newForm.setName(req);
-        newForm.setCode(req.toUpperCase().replace(" ", "_"));
+        newForm.setName(req.getFormName());
+        newForm.setCode(req.getFormName().toUpperCase().replace(" ", "_"));
         newForm.setIsValid(true);
 
         this.formRepository.save(newForm);

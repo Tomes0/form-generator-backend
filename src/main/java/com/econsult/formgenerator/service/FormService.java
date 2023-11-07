@@ -1,5 +1,6 @@
 package com.econsult.formgenerator.service;
 
+import com.econsult.formgenerator.model.dto.CreateFormDto;
 import com.econsult.formgenerator.model.dto.FormDto;
 import com.econsult.formgenerator.model.dto.FormMinimal;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ public interface FormService {
 
     FormDto saveForm(FormDto form);
 
-    FormDto createNewForm(String form);
+    FormDto createNewForm(CreateFormDto form);
 
     FormDto getFormByCode(String code);
 

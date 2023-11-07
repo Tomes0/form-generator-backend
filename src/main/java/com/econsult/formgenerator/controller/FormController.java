@@ -1,6 +1,7 @@
 package com.econsult.formgenerator.controller;
 
 
+import com.econsult.formgenerator.model.dto.CreateFormDto;
 import com.econsult.formgenerator.model.dto.FormDto;
 import com.econsult.formgenerator.model.dto.FormMinimal;
 import com.econsult.formgenerator.service.FormService;
@@ -38,7 +39,7 @@ public class FormController {
     }
     @Operation(summary = "Create new form")
     @PostMapping("/createNewForm")
-    private ResponseEntity<FormDto> createNewForm(@RequestBody String formName){
+    private ResponseEntity<FormDto> createNewForm(@RequestBody CreateFormDto formName){
         return ResponseEntity.ok(formService.createNewForm(formName));
     }
 
