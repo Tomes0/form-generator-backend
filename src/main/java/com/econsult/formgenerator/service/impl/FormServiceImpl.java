@@ -4,9 +4,11 @@ import com.econsult.formgenerator.model.dto.CreateFormDto;
 import com.econsult.formgenerator.model.dto.FormDto;
 import com.econsult.formgenerator.model.dto.FormMinimal;
 import com.econsult.formgenerator.model.entity.Form;
+import com.econsult.formgenerator.model.entity.FormProperty;
 import com.econsult.formgenerator.model.entity.Group;
 import com.econsult.formgenerator.repository.FormRepository;
 import com.econsult.formgenerator.service.FormService;
+import com.econsult.formgenerator.util.FormCollectionUpdates;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -42,7 +44,7 @@ public class FormServiceImpl implements FormService {
         Form form = this.formRepository.findByCode(req.getCode());
         Form newForm = modelMapper.map(req, Form.class);
 
-        updateGroups(newForm, form);
+        FormCollectionUpdates.updateGroups(newForm, form);
 
         form.setIsValid(newForm.getIsValid());
         form.setCode(newForm.getCode());
@@ -52,14 +54,6 @@ public class FormServiceImpl implements FormService {
         this.formRepository.saveAndFlush(form);
         return req;
     }
-
-    private static void updateGroups(Form newForm, Form form) {
-        List<Group> updatedGroups = newForm.getGroups().stream().peek(group -> group.setForm(form)).toList();
-
-        form.getGroups().clear();
-        form.getGroups().addAll(updatedGroups);
-    }
-
 
     @Override
     public FormDto createNewForm(CreateFormDto req) {
