@@ -24,6 +24,9 @@ public class ChoiceProperty {
     @Column(name = "property_value")
     private String propertyValue;
 
+    @Column(name = "is_base_property")
+    private Boolean isBaseProperty;
+
     @ManyToOne
     @JoinColumn(name = "choice_id")
     private Choice choice;

@@ -24,6 +24,8 @@ public class FormProperty {
     @Column(name = "property_value")
     private String propertyValue;
 
+    @Column(name = "is_base_property")
+    private Boolean isBaseProperty;
     @ManyToOne
     @JoinColumn(name = "form_id")
     private Form form;

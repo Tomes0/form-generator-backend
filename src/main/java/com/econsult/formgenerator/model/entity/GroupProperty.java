@@ -24,6 +24,9 @@ public class GroupProperty {
     @Column(name = "property_value")
     private String propertyValue;
 
+    @Column(name = "is_base_property")
+    private Boolean isBaseProperty;
+
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;

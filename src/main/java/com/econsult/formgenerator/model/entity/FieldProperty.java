@@ -24,6 +24,9 @@ public class FieldProperty {
     @Column(name = "property_value")
     private String propertyValue;
 
+    @Column(name = "is_base_property")
+    private Boolean isBaseProperty;
+
     @ManyToOne
     @JoinColumn(name = "field_id")
     private Field field;
