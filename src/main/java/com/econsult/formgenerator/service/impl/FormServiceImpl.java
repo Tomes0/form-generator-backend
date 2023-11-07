@@ -39,19 +39,23 @@ public class FormServiceImpl implements FormService {
 
     @Override
     public FormDto saveForm(FormDto req) {
+        Form form = this.formRepository.findByCode(req.getCode());
         Form newForm = modelMapper.map(req, Form.class);
 
-        List<Group> groups = newForm
-                .getGroups()
-                .stream()
-                .peek(group -> group.setForm(newForm))
-                .toList();
+        List<Group> updatedGroups = newForm.getGroups().stream().peek(group -> group.setForm(form)).toList();
 
-        newForm.setGroups(groups);
+        form.getGroups().clear();
+        form.getGroups().addAll(updatedGroups);
 
-        this.formRepository.save(newForm);
+        form.setIsValid(newForm.getIsValid());
+        form.setCode(newForm.getCode());
+        form.setCreationDate(newForm.getCreationDate());
+        form.setLastModificationDate(newForm.getLastModificationDate());
+
+        this.formRepository.saveAndFlush(form);
         return req;
     }
+
 
     @Override
     public FormDto createNewForm(CreateFormDto req) {
@@ -60,18 +64,18 @@ public class FormServiceImpl implements FormService {
         newForm.setCode(req.getFormName().toUpperCase().replace(" ", "_"));
         newForm.setIsValid(true);
 
-        this.formRepository.save(newForm);
+        this.formRepository.saveAndFlush(newForm);
         return modelMapper.map(newForm, FormDto.class);
     }
 
     @Override
     public FormDto getFormByCode(String code) {
-        return modelMapper.map(this.formRepository.findTopByCode(code), FormDto.class) ;
+        return modelMapper.map(this.formRepository.findByCode(code), FormDto.class) ;
     }
 
     @Override
     public HttpStatus deleteForm(String code) {
-        Form toBeDeleted = this.formRepository.findTopByCode(code);
+        Form toBeDeleted = this.formRepository.findByCode(code);
 
         if(toBeDeleted != null){
             this.formRepository.delete(toBeDeleted);

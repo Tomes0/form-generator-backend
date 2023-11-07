@@ -11,5 +11,5 @@ public interface FormRepository extends JpaRepository<Form, Long> {
 
     ArrayList<Form> getAllByIsValid(Boolean isValid);
 
-    Form findTopByCode(String code);
+    Form findByCode(String code);
 }
